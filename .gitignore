@@ -1,0 +1,13 @@
+# ParcelJS temporary files
+.cache
+
+# ParcelJS output files
+dist
+
+# NodeJS dependencies
+node_modules
+npm-debug.log
+
+# dotenv file
+.env
+.envrc
