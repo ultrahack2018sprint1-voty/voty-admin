@@ -27,7 +27,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary">Ask</v-btn>
+              <v-btn @click="ask" color="primary">Ask</v-btn>
             </v-card-actions>
             <v-btn
               @click="add"
@@ -73,6 +73,9 @@ const Question = {
     add() {
       const option = {id: uuid()}
       this.options.push(option)
+    },
+    ask() {
+      this.$router.push({name: "loading"})
     }
   }
 }

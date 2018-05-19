@@ -30,7 +30,9 @@ const Loading = {
   mounted() {
     this.interval = setInterval(() => {
       if (this.value === 100) {
-        return clearInterval(this.interval)
+        clearInterval(this.interval)
+        this.$router.push({name: "results"})
+        return
       }
       this.value += 5
     }, 1000)
