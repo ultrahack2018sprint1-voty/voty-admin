@@ -3,14 +3,14 @@
     <v-container fluid grid-list-xl>
       <v-layout row justify-space-around>
         <v-flex xs4>
-          <Graph :chartData="data" :options="options"/>
+          <Graph :chartData="chartData"/>
         </v-flex>
       </v-layout>
       <v-layout row justify-space-around>
         <v-flex xs4>
           <v-alert :value="true" color="info">
-             <v-icon large dark>start</v-icon>
-            And the winner code is: <b>MC</b>
+            <v-icon large dark>start</v-icon>
+            And the winner code is: <b>{{winnerAccessCode}}</b>
           </v-alert>
         </v-flex>
       </v-layout>
@@ -43,46 +43,38 @@ const results = {
   ]
 }
 
-const labels = results.statistics.map(({option}) => option)
-const data = results.statistics.map(({responses_count}) => responses_count)
-const label = results.question
+const {
+  question: label,
+  winner_access_code: winnerAccessCode,
+  statistics
+} = results
+const labels = statistics.map(({option}) => option)
+const data = statistics.map(({responses_count}) => responses_count)
+const chartData = {
+  labels: labels,
+  datasets: [
+    {
+      label: label,
+      data: data,
+      backgroundColor: [
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(255, 99, 132, 0.2)"
+      ],
+      borderColor: [
+        "rgba(75, 192, 192, 1)",
+        "rgba(255,99,132,1)",
+        "rgba(255,99,132,1)"
+      ],
+      borderWidth: 1
+    }
+  ]
+}
 
 const Results = {
   components: {Graph},
   data() {
-    return {
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: label,
-            data: data,
-            backgroundColor: [
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(255, 99, 132, 0.2)"
-            ],
-            borderColor: [
-              "rgba(75, 192, 192, 1)",
-              "rgba(255,99,132,1)",
-              "rgba(255,99,132,1)"
-            ],
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
-    }
+    return {chartData, winnerAccessCode}
   }
 }
 
