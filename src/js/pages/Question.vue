@@ -9,20 +9,34 @@
             </v-toolbar>
             <v-card-text>
               <v-form>
-                <v-text-field prepend-icon="question_answer" name="title" label="Title" type="text" value="What is the first letter of the Alphabet?"></v-text-field>
+                <v-select
+                  :items="partners"
+                  v-model="partner"
+                  label="Partner"
+                  class="input-group"
+                  item-value="text"
+                ></v-select>
+                <v-text-field
+                  prepend-icon="question_answer"
+                  name="title"
+                  label="Title"
+                  type="text"
+                  :value="title">
+                </v-text-field>
                 <Option
                   v-for="option in options"
                   v-bind:key="option.id"
                   v-bind="option"
                   @remove="onRemove"
                 ></Option>
-                <v-select
-                  :items="times"
-                  v-model="time"
-                  label="Time in seconds"
-                  class="input-group"
-                  item-value="number"
-                ></v-select>
+                <v-layout row wrap>
+                  <v-flex xs10>
+                    <v-slider :max="30"  thumb-label step="10" ticks v-model="time" label="Duration in seconds:"></v-slider>
+                  </v-flex>
+                  <v-flex xs1>
+                    <v-text-field v-model="time" type="number"></v-text-field>
+                  </v-flex>
+                </v-layout>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -54,6 +68,7 @@ import uuid from "uuid/v4"
 
 const Question = {
   components: {Option},
+
   data() {
     return {
       options: [
@@ -62,8 +77,14 @@ const Question = {
         {id: uuid(), body: "A", correct: true},
         {id: uuid(), body: "D", correct: false}
       ],
-      time: null,
-      times: [{text: 10}, {text: 20}, {text: 30}]
+      time: 10,
+      partner: null,
+      partners: [
+        {text: "Pasibus"},
+        {text: "Bobby Burger"},
+        {text: "Orient Express"}
+      ],
+      title: "What is the first letter of the Alphabet?"
     }
   },
   methods: {
@@ -75,6 +96,15 @@ const Question = {
       this.options.push(option)
     },
     ask() {
+      this.$socket.sendObj({
+        event_type: "CREATE_QUESTION",
+        partner_title: this.partner,
+        question: {
+          duration: this.time,
+          title: this.title,
+          options: this.options
+        }
+      })
       this.$router.push({name: "loading"})
     }
   }
