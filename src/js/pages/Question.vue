@@ -12,7 +12,9 @@
                 <v-text-field prepend-icon="question_answer" name="title" label="Title" type="text" value="What is the first letter of the Alphabet?"></v-text-field>
                 <Option
                   v-for="option in options"
+                  v-bind:key="option.id"
                   v-bind="option"
+                  @remove="onRemove"
                 ></Option>
                 <v-select
                   :items="times"
@@ -28,6 +30,7 @@
               <v-btn color="primary">Ask</v-btn>
             </v-card-actions>
             <v-btn
+              @click="add"
               color="success"
               dark
               small
@@ -47,18 +50,29 @@
 
 <script>
 import Option from "@/components/Option"
+import uuid from "uuid/v4"
 
 const Question = {
   components: {Option},
   data() {
     return {
       options: [
-        {id: 1, body: "B", correct: false},
-        {id: 2, body: "C", correct: false},
-        {id: 3, body: "A", correct: true}
+        {id: uuid(), body: "B", correct: false},
+        {id: uuid(), body: "C", correct: false},
+        {id: uuid(), body: "A", correct: true},
+        {id: uuid(), body: "D", correct: false}
       ],
       time: null,
       times: [{text: 10}, {text: 20}, {text: 30}]
+    }
+  },
+  methods: {
+    onRemove(value) {
+      this.options = this.options.filter(({id}) => id != value)
+    },
+    add() {
+      const option = {id: uuid()}
+      this.options.push(option)
     }
   }
 }
