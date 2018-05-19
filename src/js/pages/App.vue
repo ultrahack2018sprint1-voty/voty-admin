@@ -1,21 +1,14 @@
 <template>
-  <main>
-    <nav
-      class="navbar is-success"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand">
-        <span class="navbar-item has-text-weight-bold" href="/">
-          Voty Admin
-        </span>
-      </div>
-      <div class="navbar-start">
-        <router-link to="home" class="navbar-item">
-          Home
-        </router-link>
-      </div>
-    </nav>
+  <v-app>
+   <v-toolbar color="indigo" dark fixed app>
+     <v-toolbar-title>Voty Admin</v-toolbar-title>
+     <v-spacer></v-spacer>
+     <v-toolbar-items class="hidden-sm-and-down">
+       <v-btn to="question" flat>Question</v-btn>
+       <v-btn to="results" flat>Results</v-btn>
+     </v-toolbar-items>
+    </v-toolbar>
     <router-view/>
-  </main>
-</template>;
+    <v-footer color="indigo" app inset></v-footer>
+  </v-app>
+</template>
