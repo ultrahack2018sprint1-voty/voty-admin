@@ -10,7 +10,7 @@
         <v-flex xs4>
           <v-alert :value="true" color="info">
             <v-icon large dark>start</v-icon>
-            And the winner code is: <b>{{winnerAccessCode}}</b>
+            <span class="title">And the winner code is: <b>{{winnerAccessCode}}</b></span>
           </v-alert>
         </v-flex>
       </v-layout>
