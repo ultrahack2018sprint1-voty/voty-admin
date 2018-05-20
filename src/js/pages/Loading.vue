@@ -35,12 +35,12 @@ const Loading = {
   },
   computed: {
     step() {
-      return 100 / this.duration
+      return Math.floor(100 / this.duration)
     }
   },
   mounted() {
     this.interval = setInterval(() => {
-      if (this.value === 100) {
+      if (this.value >= 100) {
         clearInterval(this.interval)
         this.$router.push({name: "results"})
         return

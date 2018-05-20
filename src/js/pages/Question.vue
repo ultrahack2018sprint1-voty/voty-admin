@@ -33,7 +33,7 @@
                   <v-flex xs10>
                     <v-slider :max="30"  thumb-label step="10" ticks v-model="time" label="Duration in seconds:"></v-slider>
                   </v-flex>
-                  <v-flex xs1>
+                  <v-flex xs2>
                     <v-text-field v-model="time" type="number"></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -72,15 +72,19 @@ const Question = {
   data() {
     return {
       options: [
-        {id: uuid(), body: "B", correct: false},
-        {id: uuid(), body: "C", correct: false},
-        {id: uuid(), body: "A", correct: true},
-        {id: uuid(), body: "D", correct: false}
+        {id: uuid(), body: "Yoga", correct: false},
+        {id: uuid(), body: "Hot Tub", correct: true},
+        {id: uuid(), body: "BBQ", correct: false},
+        {id: uuid(), body: "Karaoke", correct: false}
       ],
       time: 10,
       partner: null,
-      partners: [{text: "UltraHack"}, {text: "Digidino"}, {text: "ESA"}],
-      title: "What is the first letter of the Alphabet?"
+      partners: [
+        {text: "UltraHack"},
+        {text: "Friends & Brgrs"},
+        {text: "Digidino"}
+      ],
+      title: "What to do after lunch?"
     }
   },
   methods: {
@@ -101,7 +105,13 @@ const Question = {
           options: this.options
         }
       }
-      const path = {name: "loading", params: {duration: this.time - 1}}
+      const path = {
+        name: "loading",
+        params: {
+          duration: this.time,
+          question: {title: this.title, options: this.options}
+        }
+      }
 
       this.$socket.sendObj(payload)
       this.$router.push(path)

@@ -10,7 +10,7 @@
         <v-flex xs4>
           <v-alert :value="true" color="info">
             <v-icon large dark>start</v-icon>
-            <span class="title">And the winner code is: <b>{{winnerAccessCode}}</b></span>
+            <span class="small">And the winner code is: <b>{{winnerAccessCode}}</b></span>
           </v-alert>
         </v-flex>
       </v-layout>
@@ -23,20 +23,20 @@ import Graph from "@/components/Graph"
 
 const results = {
   winner_access_code: "vo7y",
-  question: "What is the first letter of the Alphabet?",
+  question: "What to do after lunch?",
   statistics: [
     {
-      option: "A",
+      option: "Hot Tub",
       correct: true,
       responses_count: 20
     },
     {
-      option: "B",
+      option: "Yoga",
       correct: false,
       responses_count: 17
     },
     {
-      option: "C",
+      option: "BBQ",
       correct: false,
       responses_count: 10
     }
