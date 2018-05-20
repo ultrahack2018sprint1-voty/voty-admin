@@ -14,11 +14,11 @@ const state = {
 }
 const mutations = {
   SOCKET_ONOPEN(state, event) {
-    console.log(event)
+    console.info(state, event)
     state.socket.isConnected = true
   },
   SOCKET_ONCLOSE(state, event) {
-    console.log(event)
+    console.info(state, event)
     state.socket.isConnected = false
   },
   SOCKET_ONERROR(state, event) {

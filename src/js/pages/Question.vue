@@ -79,11 +79,7 @@ const Question = {
       ],
       time: 10,
       partner: null,
-      partners: [
-        {text: "Pasibus"},
-        {text: "Bobby Burger"},
-        {text: "Orient Express"}
-      ],
+      partners: [{text: "UltraHack"}, {text: "Digidino"}, {text: "ESA"}],
       title: "What is the first letter of the Alphabet?"
     }
   },
@@ -96,7 +92,7 @@ const Question = {
       this.options.push(option)
     },
     ask() {
-      this.$socket.sendObj({
+      const payload = {
         event_type: "CREATE_QUESTION",
         partner_title: this.partner,
         question: {
@@ -104,8 +100,11 @@ const Question = {
           title: this.title,
           options: this.options
         }
-      })
-      this.$router.push({name: "loading"})
+      }
+      const path = {name: "loading", params: {duration: this.time - 1}}
+
+      this.$socket.sendObj(payload)
+      this.$router.push(path)
     }
   }
 }

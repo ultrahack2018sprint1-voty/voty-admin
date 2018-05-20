@@ -18,14 +18,25 @@
 
 <script>
 const Loading = {
+  props: {
+    duration: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      interval: {},
+      interval: null,
       value: 0
     }
   },
   beforeDestroy() {
     clearInterval(this.interval)
+  },
+  computed: {
+    step() {
+      return 100 / this.duration
+    }
   },
   mounted() {
     this.interval = setInterval(() => {
@@ -34,7 +45,7 @@ const Loading = {
         this.$router.push({name: "results"})
         return
       }
-      this.value += 5
+      this.value += this.step
     }, 1000)
   }
 }
